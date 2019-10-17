@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf/org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Obat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+    <nav th:replace="fragments/fragment :: navbar (brand= 'Detail Obat')"></nav>
+    <br>
+    <h2 style="text-align: center; margin-top: 20px">Detail obat</h2>
+    <br>
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th scope="col">Kode</th>
+                <td th:text="${obat.getKode()}"></td>
+            </tr>
+            <tr>
+                <th scope="col">Nama</th>
+                <td th:text="${obat.getNama()}"></td>
+            </tr>
+            <tr>
+                <th scope="col">Nomor Registrasi</th>
+                <td th:text="${obat.getNomorRegistrasi()}"></td>
+            </tr>
+            <tr>
+                <th scope="col">Bentuk</th>
+                <td th:text="${obat.getBentuk()}">
+            </tr>
+            <tr>
+                <th scope="col">Tanggal Terbit</th>
+                <td th:text="${obat.getTanggalTerbit()}">
+            </tr>
+            <tr>
+                <th scope="col">Harga</th>
+                <td th:text="${obat.getHarga()}"></td>
+            </tr>
+            <tr>
+                <th scope="col">Gudang Penyimpanan</th>
+                <td th:text="${gudang}"></td>
+            </tr>
+            <tr>
+                <th scope="col">Supplier</th>
+                <td th:text="${supplier}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
