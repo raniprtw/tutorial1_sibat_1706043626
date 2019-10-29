@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SIBAT</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (brand= 'Daftar Gudang')"></nav>
+<h2 style="text-align: center; margin-top: 20px">Sistem Informasi Inventori Obat</h2>
+<br>
+<div class="container">
+    <table class="table">
+        <thead class="bg-light" style="color: black">
+        <div class="container bg-dark">
+            <h4 class="bg-dark" style="color: white">Daftar Gudang</h4>
+        </div>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Alamat</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="gudang, iterationStatus : *{listGudang}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${gudang.getNama()}"></td>
+            <td th:text="${gudang.getAlamat()}"></td>
+            <td>
+                <div class="row justify-content-between">
+                    <form th:action="@{/gudang/view/} + ${gudang.getIdGudang()}" method="GET">
+                        <button class="btn btn-info">Lihat</button>
+                    </form>
+                    <form th:action="@{/obat/ubah/} + ${gudang.getIdGudang()}" method="GET">
+                        <button class="btn btn-dark">Ubah</button>
+                    </form>
+                    <form th:action="@{/obat/hapus/}">
+                        <button class="btn btn-danger">Hapus</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    <form th:action="@{/gudang/tambah/}">
+        <button class="btn btn-dark">
+            Tambah Gudang
+        </button>
+    </form>
+</div>
+</body>
+</html>
