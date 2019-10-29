@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymelaf/org">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail Obat</title>
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (brand= 'Detail Obat')"></nav>
+<br>
+<h2 style="text-align: center; margin-top: 20px">Detail Gudang</h2>
+<br>
+<div class="container">
+    <table class="table">
+        <tr>
+            <th scope="col">Nama</th>
+            <td th:text="${gudang.getNama()}"></td>
+        </tr>
+        <tr>
+            <th scope="col">Alamat</th>
+            <td th:text="${gudang.getAlamat()}"></td>
+        </tr>
+        <tr>
+            <th scope="col">Jumlah Obat</th>
+            <td th:text="${listObat.size()}"></td>
+        </tr>
+    </table>
+    <form  th:action="@{/gudang/tambah-obat/} + ${gudang.getIdGudang()}"  method="POST">
+        <select class="form-control"  id="obat" th:objects="${gudangObat}"  name="obat"><!--th:field="*{gudang}"--> >
+            <option value="0">--Pilih Obat--</option>
+            <option th:each="obat, iterationStatus : *{allObat}" th:value="${obat.idObat}" th:text="${obat.getNama()}" name="obat"></option>
+        </select>
+        <!--
+        <select class="form-control"  id="jenis" th:objects="${obat}" name="jenis">
+            <option value="0">--Pilih Jenis--</option>
+            <option th:each="jenis, iterationStatus : *{allJenis}" th:value="${jenis.idJenis}" th:text="${jenis.getNama()}" ></option>
+        </select>
+        -->
+        <input class="btn-dark" type="submit">
+    </form>
+    <br>
+    <table class="table">
+        <thead class="bg-light" style="color: black">
+        <div class="container bg-dark">
+            <h4 class="bg-dark" style="color: white">Daftar Obat</h4>
+        </div>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Kode</th>
+            <th scope="col">Nama</th>
+            <th scope="col">Harga</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="obat, iterationStatus : *{listObat}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${obat.getKode()}"></td>
+            <td th:text="${obat.getNama()}"></td>
+            <td th:text="${obat.getHarga()}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
