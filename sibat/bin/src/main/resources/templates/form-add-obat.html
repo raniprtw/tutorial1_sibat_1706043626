@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>SIBAT</title>
+
+    <object th:include="fragments/fragment :: css" th:remove="tag"></object>
+    <object th:include="fragments/fragment :: js" th:remove="tag"></object>
+</head>
+<body>
+<nav th:replace="fragments/fragment :: navbar (brand= 'Tambah Gudang')"></nav>
+<div class="container">
+    <h2 style="margin-top: 20px">Tambah Obat</h2>
+    <form th:action="@{/obat/tambah}" th:objects="${obat}" th:field="*{obat}" method="POST">
+        <table class="table">
+            <tr>
+                <th scope="col">Nama</th>
+                <td><input type="text" name="nama"/></td>
+            </tr>
+            <tr>
+                <th scope="col">Nomor Registrasi</th>
+                <td><input type="text" name="nomorRegistrasi"/></td>
+            </tr>
+            <tr>
+                <th scope="col">Tanggal Terbit</th>
+                <td><input type="date" name="tanggalTerbit"/></td>
+            </tr>
+            <tr>
+                <th scope="col">Harga</th>
+                <td><input type="number" name="harga"/></td>
+            </tr>
+            <tr>
+                <th scope="col">Bentuk</th>
+                <td>
+                    <select class="form-control"  th:objects="${obat}" name="bentuk">
+                        <option value="0">--Pilih Bentuk--</option>
+                        <option th:value="1" >Cairan</option>
+                        <option th:value="2" >Kapsul</option>
+                        <option th:value="3">Tablet</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Jenis</th>
+                <td>
+                    <select class="form-control"  id="jenis" th:objects="${obat}" name="jenis">
+                        <option value="0">--Pilih Jenis--</option>
+                        <option th:each="jenis, iterationStatus : *{allJenis}" th:value="${jenis.idJenis}" th:text="${jenis.getNama()}" ></option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Supplier</th>
+                <form th:action="@{/obat/tambah-supplier}" th:objects="${allSupplier}" method="POST">
+                    <td>
+                        <select class="form-control"  id="supplier" th:field="*{allSupplier}" >
+                            <option value="0">--Pilih Bentuk--</option>
+                            <option th:each="supplier, iterationStatus : *{allSupplier}" th:value="${supplier.idSupplier}" th:text="${supplier.getNama()}" name="supplier"></option>
+                        </select>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-light"> Tambah Supplier </button>
+                    </td>
+                </form>
+            </tr>
+        </table>
+        <button type="submit" class="btn btn-dark"> Submit </button>
+    </form>
+</div>
+</body>
+</html>

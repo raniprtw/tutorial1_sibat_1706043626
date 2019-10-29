@@ -4,12 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.UniqueElements;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.math.BigInteger;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class ObatModel implements Serializable {
     private Double harga;
 
     @NotNull
-    @UniqueElements
+    /*@UniqueElements*/
     @Size(max = 255)
     @Column(name = "kode", nullable = false)
     private String kode;
@@ -41,14 +43,14 @@ public class ObatModel implements Serializable {
     private String nama;
 
     @NotNull
-    @UniqueElements
     @Size(max = 255)
     @Column(name = "nomorRegistrasi", nullable = false)
     private String nomorRegistrasi;
 
     @NotNull
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Column(name = "tanggalTerbit", nullable = false)
-    private Date tanggalTerbit;
+    private LocalDate tanggalTerbit;
 
     @ManyToOne(fetch = FetchType.EAGER, optional = false)
     @JoinColumn(name = "jenisId", referencedColumnName = "idJenis", nullable = false)
@@ -75,7 +77,9 @@ public class ObatModel implements Serializable {
     }
 
     public void setBentuk(String bentuk) {
-        this.bentuk = bentuk;
+        if(bentuk=="1"){this.bentuk = "Cairan";}
+        if(bentuk=="2"){this.bentuk = "Kapsul";}
+        else{this.bentuk="Tablet";}
     }
 
     public String getHarga() {
@@ -110,11 +114,11 @@ public class ObatModel implements Serializable {
         this.nomorRegistrasi = nomorRegistrasi;
     }
 
-    public Date getTanggalTerbit() {
+    public LocalDate getTanggalTerbit() {
         return tanggalTerbit;
     }
 
-    public void setTanggalTerbit(Date tanggalTerbit) {
+    public void setTanggalTerbit(LocalDate tanggalTerbit) {
         this.tanggalTerbit = tanggalTerbit;
     }
 
@@ -138,7 +142,7 @@ public class ObatModel implements Serializable {
         return listObatSupplier;
     }
 
-    public void setListObatSupplier(List<ObatSupplierModel> listObatSupplier) {
-        this.listObatSupplier = listObatSupplier;
-    }
+    public void setListObatSupplier(List<ObatSupplierModel> listObatSupplier) { this.listObatSupplier = listObatSupplier; }
+
+
 }

@@ -1,6 +1,8 @@
 package apap.tugas1.sibat.service;
 
+import apap.tugas1.sibat.model.JenisModel;
 import apap.tugas1.sibat.model.ObatModel;
+import apap.tugas1.sibat.model.SupplierModel;
 
 import java.util.List;
 import java.util.Map;
@@ -17,4 +19,16 @@ public interface ObatService {
     String getGudangByObat(ObatModel obatModel);
 
     String getSupplierByObat(ObatModel obatModel);
+
+    List<SupplierModel> getSupplierByObatList(ObatModel obatModel);
+
+    String getKode(ObatModel obatModel);
+
+    void add(ObatModel obat);
+
+    boolean cekKode(String kode);
+
+    String createKode(ObatModel obat, JenisModel jenis);
+
+    void delete(ObatModel obat);
 }
