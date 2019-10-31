@@ -31,4 +31,6 @@ public interface ObatService {
     String createKode(ObatModel obat, JenisModel jenis);
 
     void delete(ObatModel obat);
+
+    void save(ObatModel currObat);
 }

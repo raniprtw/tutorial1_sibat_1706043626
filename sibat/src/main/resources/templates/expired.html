@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>SIBAT</title>
@@ -16,16 +16,16 @@
             <tr>
                 <th scope="col">Gudang</th>
                 <td>
-                    <!--<form  th:action="@{/gudang/expired-obat/} + ${gudang.getIdGudang()}"  th:field="*{gudang}" method="POST">-->
-                    <form  th:action="@{/gudang/expired-obat/}"  th:field="*{gudang}" method="POST">
-                        <select class="form-control"  id="gudang" th:objects="${gudang}"  name="gudang">
+                    <form  th:action="@{/gudang/expired-obat}" method="GET">
+                        <select class="form-control" id="idGudang" th:objects="${gudangObat}"  name="idGudang">
                             <option value="0">--Pilih Gudang--</option>
-                            <option th:each="gudang, iterationStatus : *{allGudang}" th:value="${gudang.getIdGudang()}" th:text="${gudang.getNama()}" ></option>
+                            <option th:each="gd, iterationStatus : ${allGudang}" th:value="${gd.getIdGudang()}" th:text="${gd.getNama()}" ></option>
                         </select>
                         <input class="btn-dark" type="submit" >
                     </form>
                 </td>
             </tr>
+        </table>
         <br><br>
         <table class="table">
             <thead class="bg-light" style="color: black">
@@ -37,7 +37,6 @@
                 <th scope="col">Kode</th>
                 <th scope="col">Nama</th>
                 <th scope="col">Harga</th>
-                <th scope="col">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -45,20 +44,7 @@
                 <td th:text="${iterationStatus.count}"></td>
                 <td th:text="${obat.getKode()}"></td>
                 <td th:text="${obat.getNama()}"></td>
-                <td th:text="${obat.getHarga()}">Rp </td>
-                <td>
-                    <div class="row justify-content-between">
-                        <form th:action="@{/obat/view/} + ${obat.nomorRegistrasi}" method="GET">
-                            <button class="btn btn-info">Lihat</button>
-                        </form>
-                        <form th:action="@{/obat/ubah/} + ${obat.idObat}" method="GET">
-                            <button class="btn btn-dark">Ubah</button>
-                        </form>
-                        <form th:action="@{/obat/hapus/} + ${obat.idObat}">
-                            <button class="btn btn-danger">Hapus</button>
-                        </form>
-                    </div>
-                </td>
+                <td th:text="${obat.getHarga()}"></td>
             </tr>
             </tbody>
         </table>

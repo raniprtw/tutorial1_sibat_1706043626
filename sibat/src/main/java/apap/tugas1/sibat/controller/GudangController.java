@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -60,6 +61,7 @@ public class GudangController {
         model.addAttribute("gudang", gudangModel);
         model.addAttribute("listObat", listObat);
         model.addAttribute("allObat", allObat);
+        model.addAttribute("notif", "");
 
         return "view-gudang";
     }
@@ -68,15 +70,20 @@ public class GudangController {
     @RequestMapping(value = "gudang/tambah-obat/{idGudang}", method = RequestMethod.POST)
     private String addObatToGudang(@PathVariable(value = "idGudang")@ModelAttribute Long idGudang, GudangObatModel gudangObat, Model model){
         GudangModel gudang = gudangService.getGudangByIdGudang(idGudang).get();
+        System.out.println(gudangObat.getObat() + " ini obatnya");
         gudangObat.setGudang(gudang);
         gudangObatService.add(gudangObat);
 
         List<ObatModel> listObat = gudangService.getObatByGudang(gudang);
         List<ObatModel> allObat = obatService.getObatList();
 
+        model.addAttribute("namaGudang", gudang.getNama());
+        model.addAttribute("namaObat", gudangObat.getObat().getNama());
         model.addAttribute("gudang", gudang);
         model.addAttribute("listObat", listObat);
         model.addAttribute("allObat", allObat);
+        model.addAttribute("notif", "Obat " + gudangObat.getObat().getNama() + " berhasil ditambahkan ke gudang "
+                            + gudang.getNama() + " pada " + java.time.LocalDate.now() );
 
         return "view-gudang";
     }
@@ -107,13 +114,22 @@ public class GudangController {
         return "expired";
     }
 
-    @RequestMapping(value = "/gudang/expired-obat/{idGudang}", method = RequestMethod.POST)
-    public String selectedGudang(@PathVariable(value = "idGudang") Long idGudang,Model model){
+    @RequestMapping(value = "/gudang/expired-obat", method = RequestMethod.GET)
+    public String selectedGudang(@RequestParam(value = "idGudang") Long idGudang, Model model){
         GudangModel gudangModel = gudangService.getGudangByIdGudang(idGudang).get();
+        List<GudangModel> listGudang = gudangService.getGudangList();
         List<ObatModel> listObat = gudangService.getObatByGudang(gudangModel);
+        List<ObatModel> expObat = new ArrayList<>();
 
+        for(ObatModel obatExp : listObat){
+            if(obatExp.getTanggalTerbit().plusYears(5).isBefore(java.time.LocalDate.now())){
+                expObat.add(obatExp);
+            }
+        }
+
+        model.addAttribute("allGudang", listGudang);
         model.addAttribute("gudang", gudangModel);
-        model.addAttribute("listObat", listObat);
+        model.addAttribute("listObat", expObat);
 
         return "expired";
     }

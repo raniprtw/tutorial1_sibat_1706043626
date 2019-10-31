@@ -8,6 +8,44 @@
 </head>
 <body>
 <nav th:replace="fragments/fragment :: navbar (brand='SIBAT')"></nav>
-<h2 th:text="'Obat dengan nama ' + ${namaObat} + ' berhasil ditambahkan.'"></h2>
+<h2 style="text-align: center; margin-top: 20px">Sistem Informasi Obat</h2>
+<br>
+<div class="container">
+    <table class="table">
+        <tr>
+            <th scope="col">Tambahkan Supplier</th>
+            <td>
+                <form  th:action="@{/obat/tambah-supplier/} + ${id}" method="POST">
+                    <select class="form-control" id="supplier" th:objects="${obatSupplier}"  name="supplier">
+                        <option value="0">--Pilih Supplier--</option>
+                        <option th:each="sup, iterationStatus : ${allSupplier}" th:value="${sup.getIdSupplier()}" th:text="${sup.getNama()}" name="supplier" ></option>
+                    </select>
+                    <input class="btn-dark" type="submit" >
+                </form>
+            </td>
+        </tr>
+    </table>
+    <h4 style="text-align: center" th:text="${notif}"></h4>
+    <br><br>
+    <table class="table">
+        <thead class="bg-light" style="color: black">
+        <div class="container bg-dark">
+            <h4 class="bg-dark" style="color: white" th:text="'Daftar Supplier untuk obat ' + ${namaObat}"> </h4>
+        </div>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nama Supplier</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="supplier, iterationStatus : *{listSupplier}">
+            <td th:text="${iterationStatus.count}"></td>
+            <td th:text="${supplier.getNama()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <br>
+    </table>
+</div>
 </body>
 </html>

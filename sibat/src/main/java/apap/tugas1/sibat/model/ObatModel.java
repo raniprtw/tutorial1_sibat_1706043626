@@ -77,9 +77,7 @@ public class ObatModel implements Serializable {
     }
 
     public void setBentuk(String bentuk) {
-        if(bentuk=="1"){this.bentuk = "Cairan";}
-        if(bentuk=="2"){this.bentuk = "Kapsul";}
-        else{this.bentuk="Tablet";}
+        this.bentuk=bentuk;
     }
 
     public String getHarga() {

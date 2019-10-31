@@ -36,7 +36,7 @@
                         <form th:action="@{/obat/view/} + ${obat.nomorRegistrasi}" method="GET">
                             <button class="btn btn-info">Lihat</button>
                         </form>
-                        <form th:action="@{/obat/ubah/} + ${obat.idObat}" method="GET">
+                        <form th:action="@{/obat/ubah} + ${obat.idObat}" method="GET">
                             <button class="btn btn-dark">Ubah</button>
                         </form>
                         <form th:action="@{/obat/hapus/} + ${obat.idObat}">

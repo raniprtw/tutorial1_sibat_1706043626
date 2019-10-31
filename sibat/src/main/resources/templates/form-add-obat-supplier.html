@@ -8,7 +8,7 @@
     <object th:include="fragments/fragment :: js" th:remove="tag"></object>
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar (brand= 'Tambah Obat')"></nav>
+<nav th:replace="fragments/fragment :: navbar (brand= 'Tambah Gudang')"></nav>
 <div class="container">
     <h2 style="margin-top: 20px">Tambah Obat</h2>
     <form th:action="@{/obat/tambah}" th:objects="${obat}" th:field="*{obat}" method="POST">
@@ -32,11 +32,11 @@
             <tr>
                 <th scope="col">Bentuk</th>
                 <td>
-                    <select class="custom-select"  th:object="${obat}" id="bentuk" name="bentuk">
+                    <select class="custom-select"  th:object="${obat}" id="bentuk" name="bentuk" th:field="*{bentuk}">
                         <option value="0">--Pilih Bentuk--</option>
-                        <option th:value="1" >Cairan</option>
-                        <option th:value="2" >Tablet</option>
-                        <option th:value="3" >Kapsul</option>
+                        <option th:value="Cairan">Cairan</option>
+                        <option th:value="Kapsul">Kapsul</option>
+                        <option th:value="Tablet">Tablet</option>
                     </select>
                 </td>
             </tr>
@@ -47,6 +47,23 @@
                         <option value="0">--Pilih Jenis--</option>
                         <option th:each="jenis, iterationStatus : *{allJenis}" th:value="${jenis.idJenis}" th:text="${jenis.getNama()}" ></option>
                     </select>
+                </td>
+            </tr>
+            <tr>
+                <th scope="col">Supplier</th>
+                <td class="form-group" th:each="supplier, rowStat : ${obat.listObatSupplier}" required>
+                    <select class="form-control" name="supplier"
+                            th:field="${obat.listObatSupplier[__${rowStat.index}__].idObatSupplier}" id="supplier" th:objects="${obatSupplier}" >
+                        <option th:value="${rowStat.index}" selected>Pilih Supplier</option>
+                        <option th:each="supplier : *{allSupplier}"
+                                th:value="${supplier.idSupplier}"
+                                th:text="${supplier.getNama()}">
+
+                        </option>
+                    </select>
+                </td>
+                <td>
+                    <button class="btn btn-outline-dark" type="submit" name="addRow">Tambah Supplier</button>
                 </td>
             </tr>
         </table>

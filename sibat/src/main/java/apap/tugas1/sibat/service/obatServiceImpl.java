@@ -95,6 +95,11 @@ public class obatServiceImpl implements ObatService{
     @Override
     public void delete(ObatModel obat) { obatDb.delete(obat); }
 
+    @Override
+    public void save(ObatModel currObat) {
+        obatDb.save(currObat);
+    }
+
     public String createKode(ObatModel obat, JenisModel jenis){
         String kode = "";
         if(jenis.getNama().equals("Paten")){kode += "1";}

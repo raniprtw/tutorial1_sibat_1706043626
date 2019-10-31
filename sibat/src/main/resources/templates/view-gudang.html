@@ -8,7 +8,7 @@
 
 </head>
 <body>
-<nav th:replace="fragments/fragment :: navbar (brand= 'Detail Obat')"></nav>
+<nav th:replace="fragments/fragment :: navbar (brand= 'Detail Gudang')"></nav>
 <br>
 <h2 style="text-align: center; margin-top: 20px">Detail Gudang</h2>
 <br>
@@ -34,7 +34,7 @@
         </select>
         <input class="btn-dark" type="submit">
     </form>
-    <br>
+    <h4 th:text="*{notif}"></h4>
     <table class="table">
         <thead class="bg-light" style="color: black">
         <div class="container bg-dark">
